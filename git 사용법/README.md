@@ -43,7 +43,7 @@ Git은 협업을 위한 버전 컨트롤 시스템(`VCS`)으로  많이 사용�
 
 내 저장소에 먼저 변경을 준 후 PR을 통해 원본에 반영하는 프로세스로 진행하게 된다.
 
-<img src="assets/fork_1.jpg">
+<img src="./assets/fork_1.jpg">
 
 원본 repository에 접근하여 fork를 눌러주면
 
@@ -63,7 +63,7 @@ git이라는 원격 저장소 안의 내용들을 내 PC로 가져온 후, 작�
 
 - fork로 생성한 내 레포지토리 안에 가서, code - url 카피를 해보자.
 
-<img src="assets/clone_1.jpg">
+<img src="./assets/clone_1.jpg">
 
 ##### `git clone <url>`
 
@@ -140,7 +140,7 @@ git checkout -b <branch_name>
 git checkout <branch_name>
 ```
 
-<img src="assets/checkout_1.PNG" style= "float:left">
+<img src="./assets/checkout_1.PNG" style= "float:left">
 
 > use_git 이라는 브랜치를 생성하며 이동
 
@@ -191,7 +191,7 @@ git push main use_git
 
 4번까지의 작업을 완료한 후, 내 원격 저장소로 들어가보면 다음과 같이 변경되어 있음을 알 수 있다.
 
-<img src="assets/PR_1.jpg">
+<img src="./assets/PR_1.jpg">
 
 - Compare & Pull request
 - Branches에 use_git이 생성됨.
@@ -200,7 +200,7 @@ git push main use_git
 
 ## 6. 코드리뷰, Merge Pull Reqest
 
-<img src="assets/PR_2.jpg">
+<img src="./assets/PR_2.jpg">
 
 이렇게 PR을 올려주고 Pull requests에 들어가보면, PR요청이 와있음을 알 수 있다.
 
@@ -220,7 +220,7 @@ Conflict가 없다고 체크 되었으니, Merge Pull request를 통해 변경�
 
 main브랜치로 돌아간 후, git merge를 통해 변경사항을 합쳐주자.
 
-<img src="assets/merge_1.PNG" style="float:left">
+<img src="./assets/merge_1.PNG" style="float:left">
 
 
 
