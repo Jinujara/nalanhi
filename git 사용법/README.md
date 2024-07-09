@@ -43,8 +43,7 @@ Git은 협업을 위한 버전 컨트롤 시스템(`VCS`)으로  많이 사용�
 
 내 저장소에 먼저 변경을 준 후 PR을 통해 원본에 반영하는 프로세스로 진행하게 된다.
 
-<img src="./assets/fork_1.jpg">
-
+<img src="https://github.com/Jinujara/nalanhi/blob/main/git%20%EC%82%AC%EC%9A%A9%EB%B2%95/assets/fork_1.JPG">
 원본 repository에 접근하여 fork를 눌러주면
 
 
