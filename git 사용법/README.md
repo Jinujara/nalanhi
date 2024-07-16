@@ -89,6 +89,94 @@ origin  https://github.com/<user_name>/<repo_name> (push)
 
 
 
+### 원격 저장소의 상태를 반영하는 방법 (선택사항)
+
+원본 레포(upstream)의 변경사항을 트래킹하지 못한다면, 버전 컨트롤에서 어려움이 있을 수 있다.
+
+> 트래킹되지 않았을 때
+
+```bash
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+```
+
+> 트래킹 했을 때
+
+```bash
+$ git status
+On branch main
+Your branch is behind 'upstream/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+```
+
+트래킹을 함으로써, fetch를 해야 하는지 아닌지 등의 여부를 파악할 수 있다.
+
+또한, git pull을 하게 되면 내 로컬 브랜치(main)로 fetch와 함께 merge되는 것을 볼 수 있다.
+
+---
+
+#### 트래킹 하는 방법
+
+이 과정을 거치면 `git status`를 통해 `upstream`과 `origin`의 차이를 볼 수 있게 된다.
+
+1. 먼저 origin과 upstream이 둘 다 잘 연결되어 있는지 확인
+
+```bash
+$ git remote -v
+origin  https://github.com/JHyuk2/nalanhi (fetch)
+origin  https://github.com/JHyuk2/nalanhi (push)
+upstream        https://github.com/Jinujara/nalanhi.git (fetch)
+upstream        https://github.com/Jinujara/nalanhi.git (push)
+```
+
+2. 연결된 걸 확인했다면 내 로컬 브랜치(`main`)를 이어줄 수 있게 해 줌.
+
+```bash
+$ git branch --set-upstream-to=upstream/main
+
+# Branch 'main' set up to track remote branch 'main' from 'upstream'.
+```
+
+3. upstream과 origin의 상태를 한 번 확인.
+
+   만약, upstream에 변경사항(commit)이 2건 있다면 아래와 같이 뜰 것이다.
+
+```bash
+$ git status
+On branch main
+Your branch is behind 'upstream/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+```
+
+4. 변경사항 반영하기
+
+​	변경을 반영하는 방법은 두 가지가 존재한다.
+
+- git fetch - 변경 사항을 로컬 저장소로 가져오지만, 작업중인 브랜치에 적용은 하지 않음.
+- git pull - 변경 사항을 가져오는 것(`fetch`)과 동시에 변경 사항을 자동으로 병합(`merge`) 해 줌.
+
+> 먼저 `$git checkout main` 을 사용해, 로컬 메인(origin main)브랜치로 이동하자.
+
+`git fetch`
+
+```bash
+$git fetch upstream
+$git merge upstream/main # upstream의 main브랜치를 현재 브랜치(origin main)에 병합
+```
+
+`git pull`
+
+```bash
+$git pull upstream main # upstream의 main브랜치를 fetch후 바로 merge시킴.
+```
+
+
+
 ## 3. Branch
 
 현재 우리는 main이라는 원형 브랜치를 갖고 있는데,
