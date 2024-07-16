@@ -191,15 +191,28 @@ $git pull upstream main # upstream의 main브랜치를 fetch후 바로 merge시�
 - 기존 upstream이 origin/main에서 upstream/main으로 변경되었기 때문에, git push를 하게 되면 upstream 으로 바로 push하게 되고, PR의 과정이 생략된다.
 -  **내 레포에만 변경을 주고 싶다면 아래와 같이 진행**해야 한다.
 
-1. origin main에 변경사항 푸쉬
+
+
+origin main에 변경사항 푸쉬
 
 ```bash
+$git add <file>
+$git commit -m "Add file"
 $git push origin main
 ```
 
-2. Pull Request 요청
+이 상태에서 `git status`를 찍어보면 아래와 같이 뜰 것이다.
 
+```bash
+$ git status
+On branch main
+Your branch is ahead of 'upstream/main' by 1 commit.
+  (use "git push" to publish your local commits)
 
+nothing to commit, working tree clean
+```
+
+이 상태에서 Pull Request 요청해야 Upstream에 반영할 수 있게 된다.
 
 
 
