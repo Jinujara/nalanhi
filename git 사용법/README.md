@@ -93,6 +93,13 @@ origin  https://github.com/<user_name>/<repo_name> (push)
 
 원본 레포(upstream)의 변경사항을 트래킹하지 못한다면, 버전 컨트롤에서 어려움이 있을 수 있다.
 
++ **주의사항!**
+
+  **트래킹을 했을 때, `git push origin main` 으로 명시해주어야 하게 된다.** 
+  **그렇지 않고 `git push`만 하는 경우, `git push upstream main`으로 가게 된다.**
+
+
+
 > 트래킹되지 않았을 때
 
 ```bash
@@ -174,6 +181,38 @@ $git merge upstream/main # upstream의 main브랜치를 현재 브랜치(origin 
 ```bash
 $git pull upstream main # upstream의 main브랜치를 fetch후 바로 merge시킴.
 ```
+
+
+
+**주의사항** 
+
+사실 이 모든 과정은 `연결된 링크를 바꾸는 과정`이다.
+
+- 기존 upstream이 origin/main에서 upstream/main으로 변경되었기 때문에, git push를 하게 되면 upstream 으로 바로 push하게 되고, PR의 과정이 생략된다.
+-  **내 레포에만 변경을 주고 싶다면 아래와 같이 진행**해야 한다.
+
+
+
+origin main에 변경사항 푸쉬
+
+```bash
+$git add <file>
+$git commit -m "Add file"
+$git push origin main
+```
+
+이 상태에서 `git status`를 찍어보면 아래와 같이 뜰 것이다.
+
+```bash
+$ git status
+On branch main
+Your branch is ahead of 'upstream/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+
+이 상태에서 Pull Request 요청해야 Upstream에 반영할 수 있게 된다.
 
 
 
