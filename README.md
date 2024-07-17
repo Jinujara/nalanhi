@@ -19,6 +19,8 @@
 ---
 
 **Version Check**
-python --version(3.11.7)  
 
-requirements.txt => 추후에 poetry로 변경할 예정.
+> 코드 실행 환경
+> python --version (3.11.7)  
+> requirements.txt => 추후에 poetry로 변경할 예정.
+
