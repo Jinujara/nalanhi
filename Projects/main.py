@@ -41,8 +41,8 @@ data_single = pd.DataFrame({
 # data_df.to_csv('data.csv', encoding='utf-8', index=False)
 data_single.to_csv('data.csv', encoding='utf-8', index=False)
 
-# 업로드
+# 기능 1: 업로드
 IG.post_media('data.csv')
 
-# 모든 댓글에 대한 답글 달기
+# 기능 2: 모든 댓글에 대한 답글 달기
 # IG.reply_for_comment()
