@@ -5,6 +5,8 @@
         src="http://img.shields.io/badge/-Instagram-white?style=flat&logo=Instagram&link=https://www.instagram.com/sesac.nalanhi/"
         style="height : auto; margin-left : 10px; margin-right : 10px;"/>
 </a>
+
+나란희 ->
 <a href="https://www.instagram.com/sesac.nalanhi/">
     <img 
         src="http://img.shields.io/badge/-Instagram-white?style=flat&logo=Instagram&link=https://www.instagram.com/sesac.nalanhi/"
@@ -12,7 +14,7 @@
 </a>
 
 ## 사용법
-0) main.py 실행 시, 게시글 및 이미지 생성
+0) main.py 실행 시, 게시글 및 이미지 생성 진행
 
 1) 게시물 업로드 하기
     main.py 내 IG.post_media(path) 코드 활성화(주석제거) 시,
