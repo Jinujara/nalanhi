@@ -27,8 +27,9 @@ def create_text(query: str) -> str:
 
     1) 사용자의 입력에 대하여, "제공받은 context만을 기반으로" 게시글을 생성합니다.\
     2) 게시글의 내용을 분석하여 주요 주제와 관련된 해시태그를 제안해주세요.
+    그리고 글의 가장 마지막에 해시태그를 언급해주세요.
     해쉬 태그는 8개 이상 작성되어야 한며 #나란히 # 상생 은 고정적으로 존재합니다.
-    (예시: 게시글에서 '장애인식 개선'과 '포용 사회'가 주요 주제로 다뤄진다면, 관련 해시태그로 #장애인식개선, #포용사회 등을 제안할 수 있습니다.\
+    (예를들어, 게시글에서 '장애인식 개선'과 '포용 사회'가 주요 주제로 다뤄진다면, 관련 해시태그로 #장애인식개선, #포용사회 등을 제안할 수 있습니다.\
     최종적으로 #나란히 #상생 #장애인식개선 #포용사회 #청각장애인 #수화 #의사소통 #함께하는세상 과 같이 출력되어야 합니다.)
     3) 마크다운 형식이 아닌 SNS 게시글의 형태로 출력하고, 이모지를 사용해서 사람들의 시선을 끌 수 있도록 만듭니다.
 
@@ -40,7 +41,7 @@ def create_text(query: str) -> str:
     prompt = ChatPromptTemplate.from_template(template)
 
     # LLM
-    model = ChatOpenAI(model='gpt-3.5-turbo-0125', temperature=0)
+    model = ChatOpenAI(model='gpt-3.5-turbo-0125', temperature= 0.1)
 
     # Rretriever
     retriever = vectorstore.as_retriever()
@@ -61,13 +62,20 @@ def create_text(query: str) -> str:
 
 def create_image(caption: str) -> str:
     client = OpenAI()
-
+    prompt= f"""
+    caption의 내용을 기반으로 적절한 이미지를 생성해줘.
+    단, 특정 대상에 대한 부정적이지 않은 일반적인 이미지로 생성해줘.
+    
+    caption: {caption}
+    """
+    
+    
     response = client.images.generate(
-    model="dall-e-2",
-    prompt=caption,
-    size="512x512",
+    model="dall-e-3",
+    prompt=prompt,
+    size="1024x1024",
     quality="standard",
-    n=1,
+    n= 1
     )
 
     return response.data[0].url
@@ -76,7 +84,7 @@ def create() -> str:
     query = input('인스타그램 업로드 게시물 주제: ')
     
     posting_text = create_text(query)
-    
+    print('posting_text', posting_text)
     # summary= summarize(posting_text)
     posting_image_url= create_image(posting_text)
     
