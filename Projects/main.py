@@ -30,12 +30,23 @@ df = pd.DataFrame(columns=['upload_time', 'media_info', 'caption', 'Q_comment', 
 #     'A_reply' : [None]})
 
 single_info = [(image, 'IMAGE')]
+qna_text= create_object.create_qna(text)
+# qna_text= create_object.create_qna_(text)
+print('qna_text', qna_text)
+
+Q= qna_text.split('A')[0]
+A= 'A' + qna_text.split('A')[1]
+# print('Q',Q)
+# print('A',A)
+
+
+
 data_single = pd.DataFrame({
     'upload_time': ['2024/07/20'],
     'media_info': [single_info], # (url, media_type)
     'caption' : [text],
-    'Q_comment': ['이제 주제만 입력하면 한번에 업로드 됍니당 키키'],
-    'A_reply' : ['이 글 누가 제일 먼저 발견하려나']})
+    'Q_comment': [Q],
+    'A_reply' : [A]})
 
 # data_df = pd.concat([data_multi, data_single], axis=0, ignore_index=True)
 # data_df.to_csv('data.csv', encoding='utf-8', index=False)

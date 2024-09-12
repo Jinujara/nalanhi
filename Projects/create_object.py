@@ -1,4 +1,4 @@
-import os
+import openai
 from openai import OpenAI
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -30,7 +30,7 @@ def create_text(query: str) -> str:
     해쉬 태그는 8개 이상 작성되어야 한며 #나란히 # 상생 은 고정적으로 존재합니다.
     (예시: 게시글에서 '장애인식 개선'과 '포용 사회'가 주요 주제로 다뤄진다면, 관련 해시태그로 #장애인식개선, #포용사회 등을 제안할 수 있습니다.\
     최종적으로 #나란히 #상생 #장애인식개선 #포용사회 #청각장애인 #수화 #의사소통 #함께하는세상 과 같이 출력되어야 합니다.)
-    3) 마크다운 형식이 아닌 게시글의 형태로 출력하고, 이모지를 사용해서 사람들의 시선을 끌 수 있도록 만듭니다.
+    3) 마크다운 형식이 아닌 SNS 게시글의 형태로 출력하고, 이모지를 사용해서 사람들의 시선을 끌 수 있도록 만듭니다.
 
     : {context}
 
@@ -73,7 +73,7 @@ def create_image(caption: str) -> str:
     return response.data[0].url
 
 def create() -> str:
-    query = input('인스타그램 업로드 게시물 주제(질문형식도 ok): ')
+    query = input('인스타그램 업로드 게시물 주제: ')
     
     posting_text = create_text(query)
     
@@ -81,3 +81,59 @@ def create() -> str:
     posting_image_url= create_image(posting_text)
     
     return posting_text, posting_image_url
+
+
+
+# 랭체인을 활용한 Q&A 생성
+def create_qna(caption: str) -> str:
+    
+    prompt= """
+    caption의 내용을 기반으로 간단한 문제를 하나 만들어 주세요.
+    출력은 다음과 같은 형식을 지켜주세요
+    
+    Q : (생성한 퀴즈)
+    A : (퀴즈에 대한 답변)
+    
+    {caption}
+    """
+    
+    prompt = ChatPromptTemplate.from_template(prompt)
+    model = ChatOpenAI(model='gpt-3.5-turbo-0125', temperature=0)
+    
+    # RAG Chain 연결
+    rag_chain = (
+        {'caption': RunnablePassthrough()}
+        | prompt
+        | model
+        | StrOutputParser()
+    )
+    # Chain 실행
+    return rag_chain.invoke(caption)
+    
+
+
+# 기본 openai 를 이용한 Q&A 생성
+def create_qna_(caption: str) -> str:
+    
+    prompt= f"""
+    caption의 내용을 기반으로 간단한 문제를 하나 만들어 주세요.
+    단, 답변이 서술식이 아닌 주관식으로 답변할 수 있도록 질문을 만들어 주세요.
+    출력은 다음과 같은 형식을 지켜주세요
+    
+    ------------------------------
+    Q : (생성한 퀴즈)
+    A : (퀴즈에 대한 답변)
+    ------------------------------
+    
+    caption: {caption}
+    """  
+
+    
+    messages = [{"role": "user", "content": prompt}]
+    response = openai.chat.completions.create(
+        model='gpt-3.5-turbo-0125',
+        messages=messages,
+        temperature=0,
+    )
+
+    return response.choices[0].message.content
