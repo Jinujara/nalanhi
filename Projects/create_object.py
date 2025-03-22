@@ -15,7 +15,7 @@ def create_text(query: str) -> str:
     embeddings_model = OpenAIEmbeddings()
 
     # load db
-    vectorstore = FAISS.load_local('C:/Users/nyj/nalanhi/Projects/db/faiss', embeddings_model,
+    vectorstore = FAISS.load_local('db/faiss', embeddings_model,
                                 allow_dangerous_deserialization=True)
 
 
