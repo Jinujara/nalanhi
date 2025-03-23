@@ -15,7 +15,7 @@ def create_text(query: str) -> str:
     embeddings_model = OpenAIEmbeddings()
 
     # load db
-    vectorstore = FAISS.load_local('C:/Users/nyj/nalanhi/Projects/db/faiss', embeddings_model,
+    vectorstore = FAISS.load_local('db/faiss', embeddings_model,
                                 allow_dangerous_deserialization=True)
 
 
@@ -28,7 +28,7 @@ def create_text(query: str) -> str:
     1) 사용자의 입력에 대하여, "제공받은 context만을 기반으로" 게시글을 생성합니다.\
     2) 게시글의 내용을 분석하여 주요 주제와 관련된 해시태그를 제안해주세요.
     그리고 글의 가장 마지막에 해시태그를 언급해주세요.
-    해쉬 태그는 8개 이상 작성되어야 한며 #나란히 # 상생 은 고정적으로 존재합니다.
+    해쉬 태그는 8개 이상 작성되어야 하며 #나란히 # 상생 은 고정적으로 존재합니다.
     (예를들어, 게시글에서 '장애인식 개선'과 '포용 사회'가 주요 주제로 다뤄진다면, 관련 해시태그로 #장애인식개선, #포용사회 등을 제안할 수 있습니다.\
     최종적으로 #나란히 #상생 #장애인식개선 #포용사회 #청각장애인 #수화 #의사소통 #함께하는세상 과 같이 출력되어야 합니다.)
     3) 마크다운 형식이 아닌 SNS 게시글의 형태로 출력하고, 이모지를 사용해서 사람들의 시선을 끌 수 있도록 만듭니다.
